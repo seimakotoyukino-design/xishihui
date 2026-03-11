@@ -1,0 +1,14 @@
+{
+  "name": "xishihui",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:web": "./run.sh",
+    "dev:api": "node apps/api/src/server.js",
+    "check:api": "node --check apps/api/src/server.js"
+  }
+}
