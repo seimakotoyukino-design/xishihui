@@ -1,0 +1,116 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  consumer
+  merchant
+  ngo
+  admin
+}
+
+enum ProductStatus {
+  draft
+  published
+  sold_out
+  donation_only
+  archived
+}
+
+enum OrderStatus {
+  pending_payment
+  paid
+  ready_for_pickup
+  picked_up
+  completed
+  cancelled
+  refunded
+}
+
+model User {
+  id           String      @id @default(cuid())
+  phone        String      @unique
+  role         UserRole
+  nickname     String?
+  status       String      @default("active")
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  merchant     MerchantProfile?
+  consumerOrders Order[]   @relation("ConsumerOrders")
+  merchantOrders Order[]   @relation("MerchantOrders")
+}
+
+model MerchantProfile {
+  id              String   @id @default(cuid())
+  userId          String   @unique
+  shopName        String
+  contactName     String?
+  address         String
+  lng             Float
+  lat             Float
+  serviceRadiusKm Float    @default(3)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  user            User     @relation(fields: [userId], references: [id])
+  products        Product[]
+}
+
+model Product {
+  id             String      @id @default(cuid())
+  merchantId     String
+  title          String
+  category       String
+  marketPrice    Decimal
+  salePrice      Decimal
+  expiryLevel    String
+  pickupStartAt  DateTime
+  pickupEndAt    DateTime
+  status         ProductStatus @default(draft)
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+  merchant       MerchantProfile @relation(fields: [merchantId], references: [id])
+  inventory      Inventory?
+  orderItems     OrderItem[]
+}
+
+model Inventory {
+  id            String   @id @default(cuid())
+  productId     String   @unique
+  totalQty      Int
+  availableQty  Int
+  lockedQty     Int      @default(0)
+  donatedQty    Int      @default(0)
+  updatedAt     DateTime @updatedAt
+  product       Product  @relation(fields: [productId], references: [id])
+}
+
+model Order {
+  id            String      @id @default(cuid())
+  orderNo       String      @unique
+  consumerId    String
+  merchantUserId String
+  totalAmount   Decimal
+  status        OrderStatus @default(pending_payment)
+  pickupCode    String
+  expiresAt     DateTime
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  consumer      User        @relation("ConsumerOrders", fields: [consumerId], references: [id])
+  merchant      User        @relation("MerchantOrders", fields: [merchantUserId], references: [id])
+  items         OrderItem[]
+}
+
+model OrderItem {
+  id         String  @id @default(cuid())
+  orderId    String
+  productId  String
+  qty        Int
+  unitPrice  Decimal
+  order      Order   @relation(fields: [orderId], references: [id])
+  product    Product @relation(fields: [productId], references: [id])
+}

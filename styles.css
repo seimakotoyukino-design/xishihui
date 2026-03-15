@@ -1,0 +1,170 @@
+:root {
+  --green: #2f9e44;
+  --green-dark: #237537;
+  --bg: #f5f8f6;
+  --text: #1f2a22;
+  --card: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.6;
+}
+
+.hero {
+  background: linear-gradient(135deg, #d8f3dc, #b7e4c7);
+  padding-bottom: 2rem;
+}
+
+.nav {
+  max-width: 1080px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+.nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+}
+
+.nav a {
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.logo {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--green-dark);
+}
+
+.hero-content {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: 2.2rem;
+}
+
+.hero-cta {
+  margin-top: 1rem;
+  display: flex;
+  gap: 0.8rem;
+}
+
+button {
+  border: 0;
+  padding: 0.7rem 1rem;
+  border-radius: 0.5rem;
+  background: var(--green);
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+button.secondary {
+  background: #fff;
+  color: var(--green-dark);
+}
+
+.container {
+  max-width: 1080px;
+  margin: 1.2rem auto 2rem;
+  padding: 0 1rem;
+}
+
+.card {
+  background: var(--card);
+  border-radius: 1rem;
+  padding: 1.2rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
+}
+
+.grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.grid.two {
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.grid.three {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.feature {
+  padding: 0.8rem;
+  background: #effaf1;
+  border-radius: 0.6rem;
+}
+
+.timeline {
+  list-style: none;
+  padding: 0;
+}
+
+.timeline li {
+  margin: 0.6rem 0;
+}
+
+.timeline span {
+  display: inline-flex;
+  width: 1.35rem;
+  height: 1.35rem;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  margin-right: 0.45rem;
+  background: var(--green);
+  color: #fff;
+  font-size: 0.8rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border-bottom: 1px solid #e9ecef;
+  text-align: left;
+  padding: 0.65rem;
+  vertical-align: top;
+}
+
+footer {
+  text-align: center;
+  padding: 1rem;
+  color: #5c6b62;
+}
+
+@media (max-width: 720px) {
+  .nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav ul {
+    flex-wrap: wrap;
+  }
+}
