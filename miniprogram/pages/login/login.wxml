@@ -1,0 +1,13 @@
+<view class="container">
+  <view class="title">微信一键登录</view>
+  <button class="login-btn" type="primary" bindtap="handleWechatLogin" loading="{{loading}}" disabled="{{loading}}">
+    {{loading ? '登录中...' : '微信一键登录'}}
+  </button>
+
+  <view wx:if="{{userInfo}}" class="card">
+    <image class="avatar" src="{{userInfo.avatarUrl}}" mode="aspectFill"></image>
+    <view class="nickname">{{userInfo.nickname}}</view>
+    <view class="meta">用户ID：{{userInfo.id}}</view>
+    <view class="meta">新用户：{{isNewUser ? '是' : '否'}}</view>
+  </view>
+</view>
